@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import Form from './components/Form';
 import Appointment from './components/Appointment';
 
@@ -6,8 +6,14 @@ import Appointment from './components/Appointment';
 
 function App() {
 
+  // Appointments in local storage
+  let initialAppointments = JSON.parse(localStorage.getItem('appointments'));
+  if(!initialAppointments) {
+    initialAppointments = [];
+  }
+
   // Appointment list
-  const [appointments, addAppointment] = useState([]);
+  const [appointments, addAppointment] = useState(initialAppointments);
 
   // Adding appointments to list
   const createAppointment = appointment => {
@@ -17,6 +23,15 @@ function App() {
     ])
   }
 
+  // Use Effect for state changes
+  useEffect( () => {
+    if(initialAppointments){
+      localStorage.setItem('appointments', JSON.stringify(appointments))
+    } else {
+      localStorage.setItem('appointments', JSON.stringify([]))
+    }
+  }, [appointments])
+
   // Deleting appointment by id
   const deleteAppointment = id =>{
     console.log(id)
@@ -24,6 +39,9 @@ function App() {
     addAppointment(newAppointments);
 
   }
+
+  // Conditional message
+  const title = appointments.length === 0 ? "Add an appointment" : 'Edit your appointments'
 
   return (
     <Fragment>
@@ -36,7 +54,7 @@ function App() {
               />
           </div>
           <div className="one-half column">
-            <h2>Edit your appointments</h2>
+            <h2>{title}</h2>
             {appointments.map(appointment => (
               <Appointment
                 key={appointment.id}

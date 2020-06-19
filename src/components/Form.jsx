@@ -1,5 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import {v4 as uuid} from 'uuid';
+import PropTypes from 'prop-types';
+
 
 const Form = ({createAppointment}) => {
     // Create State for Appointments
@@ -19,7 +21,6 @@ const Form = ({createAppointment}) => {
             ...appointment,
             [e.target.name]: e.target.value
         })
-        
     }
 
     // Get inputs values
@@ -120,6 +121,10 @@ const Form = ({createAppointment}) => {
             </form>
         </Fragment>
      );
+}
+
+Form.propTypes ={
+    createAppointment: PropTypes.func.isRequired
 }
 
 export default Form;

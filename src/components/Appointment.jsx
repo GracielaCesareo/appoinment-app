@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Appointment = ({appointment, deleteAppointment}) => (  
+const Appointment = ({appointment, deleteAppointment}) => (
 
     <div className="appointment cita">
         <p>Pet: <span>{appointment.pet}</span></p>
