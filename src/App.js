@@ -30,7 +30,7 @@ function App() {
     } else {
       localStorage.setItem('appointments', JSON.stringify([]))
     }
-  }, [appointments])
+  }, [appointments, initialAppointments])
 
   // Deleting appointment by id
   const deleteAppointment = id =>{
